@@ -1586,6 +1586,7 @@ class AdminProductsControllerCore extends AdminController
 
     public function ajaxProcessUpdateProductImageShopAsso()
     {
+        $this->json = true;
         $id_product = Tools::getValue('id_product');
         if (($id_image = Tools::getValue('id_image')) && ($id_shop = (int)Tools::getValue('id_shop'))) {
             if (Tools::getValue('active') == 'true') {
@@ -1631,14 +1632,12 @@ class AdminProductsControllerCore extends AdminController
 
     public function ajaxProcessUpdateImagePosition()
     {
+        $this->json = true;
         if ($this->tabAccess['edit'] === '0') {
             return die(Tools::jsonEncode(array('error' => $this->l('You do not have the right permission'))));
         }
         $res = false;
         if ($json = Tools::getValue('json')) {
-            // If there is an exception, at least the response is in JSON format.
-            $this->json = true;
-
             $res = true;
             $json = stripslashes($json);
             $images = Tools::jsonDecode($json, true);
@@ -1670,6 +1669,7 @@ class AdminProductsControllerCore extends AdminController
 
     public function ajaxProcessUpdateCover()
     {
+        $this->json = true;
         if ($this->tabAccess['edit'] === '0') {
             return die(Tools::jsonEncode(array('error' => $this->l('You do not have the right permission'))));
         }
@@ -1704,6 +1704,7 @@ class AdminProductsControllerCore extends AdminController
     public function ajaxProcessDeleteProductImage()
     {
         $this->display = 'content';
+        $this->json = true;
         $res = true;
         /* Delete product image */
         $image = new Image((int)Tools::getValue('id_image'));
